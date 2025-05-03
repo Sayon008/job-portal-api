@@ -44,6 +44,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Wrong Password");
         }
 
+        // Step 4: Return authenticated token with roles (for now just empty list)
         return new UsernamePasswordAuthenticationToken(
                 username,
                 password,

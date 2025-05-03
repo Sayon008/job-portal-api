@@ -1,23 +1,24 @@
 package org.vibe.jobportal.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")  // Table name
-@Data                   // Lombok - creates getters/setters
-@AllArgsConstructor     // Lombok - creates all args constructor
-@NoArgsConstructor      // Lombok - creates no args constructor
-public class User {
+@Getter
+@Setter
+public class User extends BaseModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(unique = true,nullable = false)
+    private String email;
 
-    @Column(unique = true)
-    private String username;
+    @Column(nullable = false)
     private String password;
-    private String role;
+
+    // A user can have multiple roles (ADMIN, USER, etc.)
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Role> roles;
 }
