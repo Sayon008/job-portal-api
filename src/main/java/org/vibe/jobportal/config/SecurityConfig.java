@@ -22,6 +22,7 @@ public class SecurityConfig {
         http.cors().disable();
         http.csrf().disable();
         http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+        http.authenticationProvider(this.customAuthenticationProvider);
         return http.build();
     }
 
@@ -30,8 +31,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration){
-        return new ProviderManager(customAuthenticationProvider);
-    }
+//    @Bean
+//    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration){
+//        return new ProviderManager(customAuthenticationProvider);
+//    }
 }
