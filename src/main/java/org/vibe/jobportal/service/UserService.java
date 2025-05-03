@@ -1,10 +1,10 @@
 package org.vibe.jobportal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.vibe.jobportal.dtos.UserDTO;
+import org.vibe.jobportal.exceptions.UserAlreadyExistException;
 import org.vibe.jobportal.model.User;
 import org.vibe.jobportal.repository.UserRepository;
 
@@ -23,12 +23,12 @@ public class UserService {
     }
 
     // Method to register a new user.
-    public String registerUser(UserDTO userDTO) {
+    public String registerUser(UserDTO userDTO) throws UserAlreadyExistException {
         // Check if user with the same username already exists
         Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
 
         if(userOptional.isPresent()) {
-            return "User already exists, please try logging....!!!";
+            throw new UserAlreadyExistException("User is already present in the System. Please Try Logging.... !!!");
         }
 
         // Encrypt the password before saving
