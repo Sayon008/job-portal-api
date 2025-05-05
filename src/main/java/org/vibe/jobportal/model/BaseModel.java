@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @MappedSuperclass
-public class BaseModel {
+public abstract class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;

@@ -3,11 +3,9 @@ package org.vibe.jobportal.dtos;
 import lombok.Data;
 import org.vibe.jobportal.model.Role;
 
-import java.util.List;
-
 @Data
-public class UserDTO {
-    private Long id;
+public class RegisterRequest {
     private String email;
-    private List<Role> roles;
+    private String password;
+    private String role;
 }
