@@ -17,6 +17,7 @@ import org.vibe.jobportal.model.State;
 import org.vibe.jobportal.model.User;
 import org.vibe.jobportal.repository.RoleRepository;
 import org.vibe.jobportal.repository.UserRepository;
+import org.vibe.jobportal.security.JwtUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -39,8 +40,8 @@ public class AuthService {
     @Autowired
     private RoleRepository roleRepository;
 
-//    @Autowired
-//    private JwtUtil jwtUtil;
+    @Autowired
+    private JwtUtil jwtUtil;
 
 
     // Method to register a new user.
@@ -95,7 +96,7 @@ public class AuthService {
         }
 
         // 3. Generate dummy token (we'll add JWT integration later)
-        String token = "dummy-jwt-token";
+        String token = jwtUtil.generateToken(user.getEmail());
 
         //Prepare Response
         LoginResponse response = new LoginResponse();
@@ -105,3 +106,14 @@ public class AuthService {
         return response;
     }
 }
+
+
+
+
+
+
+//We inject JwtUtil into the service.
+//
+//Upon successful authentication, we generate a JWT token using the user's email.
+//
+//The token is then included in the LoginResponse.
