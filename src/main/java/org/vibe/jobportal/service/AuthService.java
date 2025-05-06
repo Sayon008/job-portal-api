@@ -90,7 +90,7 @@ public class AuthService {
         User user = userOptional.get();
 
         // 2. Validate password
-        if(bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.getPassword())){
+        if(!bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.getPassword())){
             throw new PasswordMismatchException("Please give correct Password!!!");
         }
 
